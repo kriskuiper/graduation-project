@@ -2,6 +2,8 @@
   "name": "@logiq/library",
   "version": "0.0.1",
   "main": "dist/index.js",
+  "module": "dist/index.module.js",
+  "source": "src/index.js",
   "private": false,
   "files": [
     "dist",
@@ -14,7 +16,7 @@
   },
   "scripts": {
     "prebuild": "npm run clean",
-    "build": "parcel build 'components/index.js' --no-cache",
+    "build": "parcel build src/index.js --no-cache",
     "clean": "rm -rf dist"
   },
   "devDependencies": {
