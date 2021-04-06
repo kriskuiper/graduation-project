@@ -1,5 +1,3 @@
-import Title from './components/Title'
+import TitleComponent from './components/Title'
 
-export default {
-    Title
-}
+export const Title = TitleComponent
