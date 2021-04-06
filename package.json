@@ -17,6 +17,7 @@
   "scripts": {
     "prebuild": "npm run clean",
     "build": "rollup -c",
+    "prepublish": "npm run build && npm version patch",
     "clean": "rm -rf dist"
   },
   "devDependencies": {
