@@ -33,8 +33,5 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "rollup": "^2.44.0",
     "rollup-plugin-peer-deps-external": "^2.2.4"
-  },
-  "dependencies": {
-    "prop-types": "^15.7.2"
   }
 }
