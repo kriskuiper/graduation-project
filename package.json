@@ -18,7 +18,7 @@
     "prebuild": "npm run clean",
     "build": "rollup -c",
     "clean": "rm -rf dist",
-    "lint": "eslint src/components/*",
+    "lint": "eslint src/components/**/*",
     "dev": "start-storybook -p 3031"
   },
   "devDependencies": {
@@ -41,8 +41,5 @@
     "react-dom": "*",
     "rollup": "^2.44.0",
     "rollup-plugin-peer-deps-external": "^2.2.4"
-  },
-  "dependencies": {
-    "prop-types": "^15.7.2"
   }
 }
