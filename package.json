@@ -40,6 +40,7 @@
     "react": "*",
     "react-dom": "*",
     "rollup": "^2.44.0",
-    "rollup-plugin-peer-deps-external": "^2.2.4"
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "storybook-css-modules-preset": "^1.0.8"
   }
 }
