@@ -1,0 +1,45 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Documenting components" />
+
+# Documenting components
+The Logiq library uses Storybook's [DocBlocks functionality](https://storybook.js.org/docs/react/writing-docs/doc-blocks)
+to document components. This means that the documentation stays close to the component since it's written
+in comment blocks instead of a seperate `.md` file.
+
+## Writing a component description
+You can add a description for your component by adding a comment block above your component, like so:
+```jsx
+// AwesomeComponent.jsx
+
+// ... imports etc.
+
+/**
+ * This is a description for my awesome component
+ */
+const AwesomeComponent = ({ someProp }) => (
+  <div>
+      {/* ... some content */}
+  </div>
+);
+
+// ....
+```
+
+## Documenting props
+Since we're using Storybook's DocBlocks you have to make use of `React.PropTypes` to document the type your prop has to be.
+On top of that you can add a description by again, writing a block comment above your prop, like so:
+```jsx
+// AwesomeComponent.jsx
+
+// ... your JSX code
+
+AwesomeComponent.propTypes = {
+    /**
+     * This prop brings the awesomeness to the component
+    */
+    someProp: PropTypes.string.isRequired
+}
+
+// ... export of your component
+```
