@@ -18,13 +18,5 @@
     "plugins": [
         "react",
         "jsx-a11y"
-    ],
-    "rules": {
-        // Since PropTypes only works in development mode it's not worth it to use it inside the
-        // component library. Therefore it's disabled so we don't get any errors from eslint.
-
-        // What type of props a component could expect is written in the documentation so you can
-        // look it up there.
-        "react/prop-types": 0
-    }
+    ]
 }
