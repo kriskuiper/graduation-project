@@ -18,5 +18,8 @@
     "plugins": [
         "react",
         "jsx-a11y"
-    ]
+    ],
+    "rules": {
+        "react/require-default-props": [2, { "ignoreFunctionalComponents": true }]
+    }
 }
