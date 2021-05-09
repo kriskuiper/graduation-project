@@ -30,6 +30,7 @@ const DialogTrigger = ({ label, className = '' }) => {
       aria-expanded={isOpen}
       aria-controls={dialogId}
       onClick={() => setIsOpen(true)}
+      className={className}
     >
       {label}
     </button>
