@@ -1,4 +1,4 @@
 import { create } from '@storybook/theming';
-import configV2 from './config/config-v2';
+import configV3 from './config/config-v3';
 
-export default create(configV2);
+export default create(configV3);
