@@ -27,9 +27,15 @@ const AwesomeComponent = ({ someProp }) => (
 ```
 
 ## Documenting props
-Since we're using Storybook's DocBlocks you have to make use of `React.PropTypes` to document the type your prop has to be.
+Since we're using Storybook's DocBlocks you have to make use of `propTypes` to document the type your prop has to be.
+### Importing the PropTypes library
+```js
+import PropTypes from 'prop-types'
+```
+
+### Writing DocBlocks above props
 On top of that you can add a description by again, writing a block comment above your prop, like so:
-```jsx
+```js
 // AwesomeComponent.jsx
 
 // ... your JSX code
