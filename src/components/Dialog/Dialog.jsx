@@ -1,149 +1,126 @@
-import React, { useState, createContext, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+
 import styles from './Dialog.module.css';
 
 const DialogContext = createContext({});
 
-const DialogContent = ({ children }) => {
+/**
+ * The component where everything about the Dialog should live in.
+ */
+const DialogRoot = ({
+  children,
+  dialogId,
+  defaultOpen,
+}) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+
+  return (
+    <DialogContext.Provider value={{ isOpen, setIsOpen, dialogId }}>
+      {children}
+    </DialogContext.Provider>
+  );
+};
+
+DialogRoot.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
+  dialogId: PropTypes.string.isRequired,
+  defaultOpen: PropTypes.bool,
+};
+
+/**
+ * The content of the dialog
+ */
+const DialogContent = ({ style, className, children }) => {
   const { isOpen } = useContext(DialogContext);
 
   return (
-    <div hidden={!isOpen} className={styles['logiq-dialog-backdrop']}>
-      <div className={styles['logiq-dialog-content']}>
-        {children}
-      </div>
+    <div hidden={!isOpen} style={style} className={`${styles['logiq-dialog-content']} ${className}`}>
+      {children}
     </div>
   );
 };
 
-const DialogTrigger = ({ label, className = '' }) => {
+DialogContent.propTypes = {
+  style: PropTypes.object,
+  className: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
+};
+
+/**
+ * An external trigger that can open the dialog
+ */
+const DialogTrigger = ({ style, className, children }) => {
   const {
-    setIsOpen,
     isOpen,
+    setIsOpen,
     dialogId,
   } = useContext(DialogContext);
 
   return (
     <button
       type="button"
-      aria-haspopup="dialog"
+      style={style}
+      className={`${styles['logiq-dialog-trigger']} ${className}`}
+      aria-haspopup={dialogId}
       aria-expanded={isOpen}
       aria-controls={dialogId}
       onClick={() => setIsOpen(true)}
-      className={className}
     >
-      {label}
+      {children}
     </button>
   );
-};
-
-const DialogClose = ({ label, className = '' }) => {
-  const { setIsOpen } = useContext(DialogContext);
-
-  return (
-    <button type="button" className={className} onClick={() => setIsOpen(false)}>
-      {label}
-    </button>
-  );
-};
-
-/**
- * A dialog that sits on top of the window to display a message to the user or let the user
- * take some kind of action.
- */
-const Dialog = ({
-  id,
-  children,
-  defaultOpen = false,
-  triggerLabel = 'Open dialog',
-  closeLabel = 'Close',
-  triggerClassNames = '',
-  closeClassNames = '',
-}) => {
-  const [isOpen, setIsOpen] = useState(defaultOpen);
-  const contextValue = {
-    isOpen,
-    setIsOpen,
-    dialogId: id,
-  };
-
-  return (
-    <>
-      <DialogContext.Provider value={contextValue}>
-        <DialogTrigger
-          label={triggerLabel}
-          className={triggerClassNames}
-        />
-        <DialogContent id={id}>
-          <header>
-            <DialogClose
-              label={closeLabel}
-              className={closeClassNames}
-            />
-          </header>
-
-          {children}
-        </DialogContent>
-      </DialogContext.Provider>
-    </>
-  );
-};
-
-DialogContent.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
 };
 
 DialogTrigger.propTypes = {
-  label: PropTypes.string,
+  style: PropTypes.object,
   className: PropTypes.string,
-};
-
-DialogClose.propTypes = {
-  label: PropTypes.string,
-  className: PropTypes.string,
-};
-
-Dialog.propTypes = {
-  /**
-   * The id of the Dialog to use with aria-controls
-  */
-  id: PropTypes.string.isRequired,
-
-  /**
-   * The content of the actual dialog
-   */
   children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.string,
     PropTypes.node,
-  ]).isRequired,
-
-  /**
-   * Should the dialog be opened by default or after clicking the trigger?
-   */
-  defaultOpen: PropTypes.bool,
-
-  /**
-   * Call to action to open the dialog, used in the trigger
-   */
-  triggerLabel: PropTypes.string,
-
-  /**
-   * Text for closing the dialog
-   */
-  closeLabel: PropTypes.string,
-
-  /**
-   * Class names to add to the trigger to style it
-   */
-  triggerClassNames: PropTypes.string,
-
-  /**
-   * Class names to add to the close button to style it
-   */
-  closeClassNames: PropTypes.string,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
 };
 
-export default Dialog;
+/**
+ * A button to close the dialog, you can place and style it any way you want
+ */
+const DialogCloseButton = ({ style, className, children }) => {
+  const { setIsOpen } = useContext(DialogContext);
+
+  return (
+    <button
+      type="button"
+      style={style}
+      className={`${styles['logiq-dialog-close']} ${className}`}
+      onClick={() => setIsOpen(false)}
+    >
+      {children}
+    </button>
+  );
+};
+
+DialogCloseButton.propTypes = {
+  style: PropTypes.object,
+  className: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
+};
+
+export {
+  DialogRoot,
+  DialogContent,
+  DialogTrigger,
+  DialogCloseButton,
+};
