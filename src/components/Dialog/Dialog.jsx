@@ -1,8 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './Dialog.module.css';
-
 const DialogContext = createContext({});
 
 /**
@@ -35,19 +33,17 @@ DialogRoot.propTypes = {
 /**
  * The content of the dialog
  */
-const DialogContent = ({ style, className, children }) => {
+const DialogContent = ({ children }) => {
   const { isOpen } = useContext(DialogContext);
 
   return (
-    <div hidden={!isOpen} style={style} className={`${styles['logiq-dialog-content']} ${className}`}>
+    <div hidden={!isOpen} className="logiq-dialog-content">
       {children}
     </div>
   );
 };
 
 DialogContent.propTypes = {
-  style: PropTypes.object,
-  className: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.node,
@@ -58,7 +54,7 @@ DialogContent.propTypes = {
 /**
  * An external trigger that can open the dialog
  */
-const DialogTrigger = ({ style, className, children }) => {
+const DialogTrigger = ({ children }) => {
   const {
     isOpen,
     setIsOpen,
@@ -68,8 +64,7 @@ const DialogTrigger = ({ style, className, children }) => {
   return (
     <button
       type="button"
-      style={style}
-      className={`${styles['logiq-dialog-trigger']} ${className}`}
+      className="logiq-dialog-trigger"
       aria-haspopup={dialogId}
       aria-expanded={isOpen}
       aria-controls={dialogId}
@@ -81,8 +76,6 @@ const DialogTrigger = ({ style, className, children }) => {
 };
 
 DialogTrigger.propTypes = {
-  style: PropTypes.object,
-  className: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.node,
@@ -93,14 +86,13 @@ DialogTrigger.propTypes = {
 /**
  * A button to close the dialog, you can place and style it any way you want
  */
-const DialogCloseButton = ({ style, className, children }) => {
+const DialogCloseButton = ({ children }) => {
   const { setIsOpen } = useContext(DialogContext);
 
   return (
     <button
       type="button"
-      style={style}
-      className={`${styles['logiq-dialog-close']} ${className}`}
+      className="logiq-dialog-close"
       onClick={() => setIsOpen(false)}
     >
       {children}
@@ -109,8 +101,6 @@ const DialogCloseButton = ({ style, className, children }) => {
 };
 
 DialogCloseButton.propTypes = {
-  style: PropTypes.object,
-  className: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.node,
@@ -118,9 +108,30 @@ DialogCloseButton.propTypes = {
   ]),
 };
 
-export {
-  DialogRoot,
-  DialogContent,
-  DialogTrigger,
-  DialogCloseButton,
+const Dialog = ({ defaultOpen, dialogId, children }) => (
+  <DialogRoot defaultOpen={defaultOpen} dialogId={dialogId}>
+    <DialogTrigger>
+      Open dialog
+    </DialogTrigger>
+
+    <DialogContent>
+      <DialogCloseButton>
+        Close dialog
+      </DialogCloseButton>
+
+      {children}
+    </DialogContent>
+  </DialogRoot>
+);
+
+Dialog.propTypes = {
+  defaultOpen: PropTypes.bool,
+  dialogId: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
 };
+
+export default Dialog;
