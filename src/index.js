@@ -1,5 +1,2 @@
-import TitleComponent from './components/Title/Title.jsx';
-import DialogComponent from './components/Dialog/Dialog.jsx';
-
-export const Title = TitleComponent;
-export const Dialog = DialogComponent;
+export { default as Title } from './components/Title/Title.jsx';
+export * from './components/Dialog/Dialog.jsx';
