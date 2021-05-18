@@ -12,10 +12,7 @@ export default {
   ],
   plugins: [
     external(),
-    postcss({
-      extract: true,
-      sourceMap: true,
-    }),
+    postcss({ modules: true }),
     babel({
       exclude: 'node_modules/**',
       babelHelpers: 'bundled',
