@@ -1,2 +1,2 @@
-export { default as Title } from './components/Title/Title.jsx';
 export * from './components/Dialog/Dialog.jsx';
+export * from './components/Hero/Hero.jsx';
