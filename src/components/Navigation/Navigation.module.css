@@ -1,0 +1,26 @@
+.logiq-navigation__list {
+    display: flex;
+    padding: 0;
+    list-style: none;
+}
+
+.logiq-navigation__list--alignment-left {
+    justify-content: flex-start;
+}
+
+.logiq-navigation__list--alignment-right {
+    justify-content: flex-end;
+}
+
+.logiq-navigation__list--alignment-center {
+    justify-content: center;
+}
+
+.logiq-navigation__list-item:not(:last-child) {
+    margin-right: 1rem;
+}
+
+.logiq-navigation__list-item > a {
+    color: inherit;
+    text-decoration: none;
+}
