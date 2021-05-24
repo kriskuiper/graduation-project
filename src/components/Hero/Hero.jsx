@@ -12,6 +12,10 @@ const calculatePaddingBottom = (aspectRatio) => {
   return 100 / (heightNumber / widthNumber);
 };
 
+/**
+ * Hero component with a background image and a title inside of it. Also has the possibility
+ * to use some aspect ratio.
+ */
 const Hero = ({
   tag = 'section',
   backgroundImage,
@@ -67,27 +71,61 @@ const Hero = ({
 };
 
 Hero.propTypes = {
+  /**
+   * The HTML tag to use for the Hero component, defaults to `section`
+   */
   tag: PropTypes.string,
+
+  /**
+   * Url of the background image of the Hero component
+   */
   backgroundImage: PropTypes.string,
+
+  /**
+   * Background color for when the image isn't loaded yet.
+   */
   backgroundColor: PropTypes.string,
+
+  /**
+   * Vertical alignment of content (nodes) inside the hero component
+   */
   verticalContentAlignment: PropTypes.oneOf([
     'top',
     'center',
     'bottom',
   ]),
+
+  /**
+   * Horizontal alignment of content (nodes) inside the hero component
+   */
   horizontalContentAlignment: PropTypes.oneOf([
     'left',
     'center',
     'right',
   ]),
+
+  /**
+   * Aspectratio of the Hero component (optional), default to 16/9
+   */
   aspectRatio: PropTypes.string,
+
+  /**
+   * Wether to use the aspect ratio or stick to a default height.
+   */
   useAspectRatio: PropTypes.bool,
+
+  /**
+   * HTML nodes inside the Hero component, should be of type HeroContent
+   */
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
 };
 
+/**
+ * Content wrapper for content inside the Hero component
+ */
 const HeroContent = ({ children, className, style }) => (
   <div className={className} style={style}>
     {children}
@@ -95,11 +133,22 @@ const HeroContent = ({ children, className, style }) => (
 );
 
 HeroContent.propTypes = {
+  /**
+   * HTML nodes inside the HeroContent component
+   */
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
+
+  /**
+   * CSS class(es) of the HeroContent component
+   */
   className: PropTypes.string,
+
+  /**
+   * Style object of the HeroContent component, should be a CSS in JS sort of object.
+   */
   style: PropTypes.object,
 };
 
