@@ -25,6 +25,7 @@ const Hero = ({
   aspectRatio = '16/9',
   useAspectRatio = false,
   children,
+  className,
 }) => {
   const HtmlTag = tag;
   const verticalAlignmentClassName = styles[`vertical-${verticalContentAlignment}`];
@@ -41,6 +42,7 @@ const Hero = ({
       className={`
         ${styles['logiq-hero']}
         ${styles['logiq-hero--with-fixed-ratio']}
+        ${className}
       `}
     >
       <div
@@ -63,6 +65,7 @@ const Hero = ({
         ${styles['logiq-hero']}
         ${verticalAlignmentClassName}
         ${horizontalAlignmentClassName}
+        ${className}
       `}
     >
       {children}
@@ -121,6 +124,11 @@ Hero.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
+
+  /**
+   * Class(es) of the hero component
+   */
+  className: PropTypes.string,
 };
 
 /**
